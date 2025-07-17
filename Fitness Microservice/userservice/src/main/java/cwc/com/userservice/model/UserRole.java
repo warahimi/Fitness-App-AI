@@ -1,2 +1,6 @@
-package cwc.com.userservice.model;public enum UserRole {
+package cwc.com.userservice.model;
+
+public enum UserRole {
+    USER,
+    ADMIN
 }
