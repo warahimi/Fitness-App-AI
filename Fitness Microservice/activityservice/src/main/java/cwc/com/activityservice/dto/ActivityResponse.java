@@ -22,6 +22,7 @@ public class ActivityResponse {
     private ActivityType activityType;
     private Integer duration;
     private Integer caloriesBurned;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy' 'HH:mm:ss")
     private LocalDateTime startTime;
     private Map<String, Object> additionalMetrics;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy' 'HH:mm:ss")

@@ -4,11 +4,13 @@ import cwc.com.activityservice.dto.ActivityRequest;
 import cwc.com.activityservice.dto.ActivityResponse;
 import cwc.com.activityservice.model.ActivityType;
 import cwc.com.activityservice.service.ActivityService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +34,7 @@ public class ActivityController {
         return ResponseEntity.ok(activityResponse);
     }
     @PostMapping
-    public ResponseEntity<ActivityResponse> addActivity(@RequestBody ActivityRequest activityRequest) {
+    public ResponseEntity<ActivityResponse> addActivity(@RequestBody @Valid ActivityRequest activityRequest) {
         ActivityResponse activityResponse = activityService.addActivity(activityRequest);
         return ResponseEntity.ok(activityResponse);
     }
@@ -55,7 +57,7 @@ public class ActivityController {
     @PutMapping("/{id}")
     public ResponseEntity<ActivityResponse> updateActivity(
             @PathVariable String id,
-            @RequestBody ActivityRequest activityRequest) {
+            @RequestBody @Valid ActivityRequest activityRequest) {
         ActivityResponse updatedActivity = activityService.updateActivity(id, activityRequest);
         return ResponseEntity.ok(updatedActivity);
     }

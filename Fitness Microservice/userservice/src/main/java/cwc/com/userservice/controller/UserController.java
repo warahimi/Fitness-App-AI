@@ -8,21 +8,43 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
-    @GetMapping("/{userId}")
-    public ResponseEntity<UserResponse> getUserProfile(@PathVariable String userId)
-    {
-        return ResponseEntity.ok(userService.getUserProfile(userId));
+
+    @GetMapping
+    public ResponseEntity<List<UserResponse>> getAllUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
     }
-    @PostMapping("/register")
+    @GetMapping("/{Id}")
+    public ResponseEntity<UserResponse> getUserProfile(@PathVariable String Id)
+    {
+        return ResponseEntity.ok(userService.getUserById(Id));
+    }
+    @PostMapping()
     public ResponseEntity<UserResponse> registerUser(@RequestBody @Valid UserRequest userRequest)
     {
-        return ResponseEntity.ok(userService.registerUser(userRequest));
+        return ResponseEntity.ok(userService.saveUser(userRequest));
     }
-    @GetMapping
+    @GetMapping("/email/{email}")
+    public ResponseEntity<UserResponse> getUserByEmail(@PathVariable String email) {
+        return ResponseEntity.ok(userService.getUserByEmail(email));
+    }
+    @PutMapping("/{Id}")
+    public ResponseEntity<UserResponse> updateUserProfile(
+            @PathVariable String Id,
+            @RequestBody @Valid UserRequest userRequest) {
+        return ResponseEntity.ok(userService.updateUser(Id, userRequest));
+    }
+    @GetMapping("/validate/{userId}")
+    public ResponseEntity<Boolean> validateUser(@PathVariable String userId) {
+        return ResponseEntity.ok(userService.validateUser(userId));
+    }
+
+
 
 }
