@@ -75,4 +75,16 @@ public class GlobalExceptionHandler {
                 .build();
         return ResponseEntity.status(500).body(errorMessage);
     }
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ErrorMessage> handleRuntimeException(RuntimeException ex) {
+        ErrorMessage errorMessage = ErrorMessage.builder()
+                .message("A runtime error occurred")
+                .details(ex.getMessage())
+                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss a")))
+                .statusCode(500)
+                .errorType("Runtime Error")
+                .path("/api/v1/activities")
+                .build();
+        return ResponseEntity.status(500).body(errorMessage);
+    }
 }

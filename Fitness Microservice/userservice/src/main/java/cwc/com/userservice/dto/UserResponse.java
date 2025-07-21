@@ -5,6 +5,8 @@ import cwc.com.userservice.model.UserRole;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 @Data
 public class UserResponse {
     private String id;
@@ -16,5 +18,6 @@ public class UserResponse {
     LocalDateTime createdAt;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy HH:mm a")
     LocalDateTime updatedAt;
+    private List<ActivityResponse> activities;
 
 }

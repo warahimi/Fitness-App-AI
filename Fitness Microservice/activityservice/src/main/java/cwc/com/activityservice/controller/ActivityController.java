@@ -61,9 +61,11 @@ public class ActivityController {
         ActivityResponse updatedActivity = activityService.updateActivity(id, activityRequest);
         return ResponseEntity.ok(updatedActivity);
     }
-    @GetMapping("/userid")
-    public ResponseEntity<List<ActivityResponse>> getActivitiesByUserId(@RequestHeader("X-USER-ID") String userId) {
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<ActivityResponse>> getActivitiesByUserId(@PathVariable String userId) {
         List<ActivityResponse> activities = activityService.getActivitiesByUserId(userId);
         return ResponseEntity.ok(activities);
     }
+
+
 }

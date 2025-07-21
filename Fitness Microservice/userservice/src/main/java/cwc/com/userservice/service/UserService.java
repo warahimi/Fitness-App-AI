@@ -10,14 +10,13 @@ import cwc.com.userservice.util.Util;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+
     public UserResponse getUserById(String Id) {
         User user = userRepository.findById(Id)
                 .orElseThrow(() -> new UserNotFoundException("User with ID " + Id + " not found."));

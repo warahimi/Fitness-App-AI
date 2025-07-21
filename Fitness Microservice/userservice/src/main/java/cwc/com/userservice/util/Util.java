@@ -1,10 +1,29 @@
 package cwc.com.userservice.util;
 
+import cwc.com.userservice.dto.ActivityResponse;
 import cwc.com.userservice.dto.UserRequest;
 import cwc.com.userservice.dto.UserResponse;
 import cwc.com.userservice.entity.User;
+import cwc.com.userservice.service.ActivityService;
+import jakarta.annotation.PostConstruct;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@AllArgsConstructor
+@Component
 public class Util {
+    private final ActivityService activityService;
+
+    private static ActivityService staticActivityService;
+
+    @PostConstruct
+    public void init(){
+        staticActivityService = activityService;
+    }
     public static UserResponse userToUserResponse(User user) {
         if (user == null) {
             return null;
@@ -17,7 +36,14 @@ public class Util {
         userResponse.setUserRole(user.getUserRole());
         userResponse.setCreatedAt(user.getCreatedAt());
         userResponse.setUpdatedAt(user.getUpdatedAt());
+        List<ActivityResponse> allActivities = staticActivityService.getAllActivities(user.getId());
+        if (allActivities == null || allActivities.isEmpty()) {
+            userResponse.setActivities(new ArrayList<>());
+            return userResponse;
+        }
+        userResponse.setActivities(allActivities);
         return userResponse;
+
     }
     public static User userRquestToUser(UserRequest userRequest)
     {

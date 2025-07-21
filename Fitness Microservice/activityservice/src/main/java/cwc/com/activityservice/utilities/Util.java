@@ -3,6 +3,10 @@ package cwc.com.activityservice.utilities;
 import cwc.com.activityservice.dto.ActivityRequest;
 import cwc.com.activityservice.dto.ActivityResponse;
 import cwc.com.activityservice.model.Activity;
+import jakarta.annotation.PostConstruct;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.client.WebClient;
 
 public class Util {
     public static ActivityResponse activityToActivityResponse(Activity activity)
@@ -17,6 +21,8 @@ public class Util {
                 .additionalMetrics(activity.getAdditionalMetrics())
                 .createdAt(activity.getCreatedAt())
                 .updatedAt(activity.getUpdatedAt())
+
+
                 .build();
     }
     public static Activity activityRequestToActivity(ActivityRequest activityRequest) {
