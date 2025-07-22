@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Slf4j
 public class RabbitMQActivityListener {
+    private final ActivityAIService activityAIService;
     @RabbitListener(queues = "${rabbitmq.queue.name}")
     public void processActivityMessage(Activity activity) {
         log.info("Processing activity message from RabbitMQ");
@@ -17,7 +18,7 @@ public class RabbitMQActivityListener {
         log.info("Received activity message: {}", activity);
         // Here you can add logic to process the activity message
         // For example, you might want to save it to a database or perform some business logic
-
+        log.info("Generating AI recommendations for activity: {}", activityAIService.generateActivityRecommendation(activity));
         log.info("Activity message processed successfully");
     }
 }
