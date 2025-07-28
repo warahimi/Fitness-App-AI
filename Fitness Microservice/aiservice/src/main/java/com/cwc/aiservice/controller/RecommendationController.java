@@ -17,6 +17,11 @@ import java.util.List;
 public class RecommendationController {
     private final RecommendationService recommendationService;
 
+    @GetMapping
+    public ResponseEntity<List<Recommendation>> getAllRecommendations() {
+        List<Recommendation> recommendations = recommendationService.getAllRecommendations();
+        return ResponseEntity.ok(recommendations);
+    }
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Recommendation>> getUserRecommendations(@PathVariable String userId) {
         List<Recommendation> recommendations = recommendationService.getUserRecommendation(userId);
